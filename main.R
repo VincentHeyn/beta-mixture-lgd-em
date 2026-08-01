@@ -39,7 +39,6 @@ x_seq <- seq(0.001, 0.999, length.out = 300)
 fit_density <- sapply(x_seq, function(x) sum(fit$omega * dbeta(x, fit$alpha, fit$beta)))
 emp_density <- density(test_data, from = 0, to = 1) # Bounded kernel density
 
-# Auto-scale y-axis so green peak doesn't get cut off
 max_y <- max(c(fit_density, emp_density$y)) * 1.10
 
 plot(emp_density, 
