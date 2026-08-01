@@ -56,27 +56,28 @@ $$
 
 ### Prerequisites
 ```R
-install.packages(c("readxl", "dplyr", "ggplot2", "goftest", "DescTools", "lubridate"))
+install.packages(c("dplyr", "ggplot2", "goftest"))
 ```
 
 ### Execution
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/beta-mixture-lgd-em.git](https://github.com/your-username/beta-mixture-lgd-em.git)
+   git clone https://github.com/VincentHeyn/beta-mixture-lgd-em.git
    cd beta-mixture-lgd-em
    ```
-2. Generate synthetic data and run the full pipeline:
+2. Run the main pipeline:
    ```R
-   source("R/00_synthetic_data.R")
    source("main.R")
    ```
-
+   
 ---
 
 ## Empirical Results & Visualizations
 
 ### 1. Mixture Fit vs. Empirical LGD Density
 The custom EM algorithm captures multimodal peaks in annual default cohorts, outperforming single-component parametric baselines.
+
+![Out-of-Sample LGD Density Fit](LGD_Density_Fit.png)
 
 ### 2. Model Selection (AIC/BIC)
 Evaluates information criteria curves across component counts ($K$) to prevent over-parameterization under regulatory guidelines.
