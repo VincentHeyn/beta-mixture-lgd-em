@@ -24,7 +24,7 @@ cat("Fitting Beta Mixture Model via EM algorithm...\n")
 fit <- EM_BetaMix(train_data, nDist = 2, maxIt = 50)
 
 cat("\n--- Estimated Parameters ---\n")
-print(data.frame(Component = 1:2, Weight = fit$omega, Alpha = fit$alpha, Beta = fit$beta))
+print(data.frame(Component = seq_along(fit$omega), Weight = fit$omega, Alpha = fit$alpha, Beta = fit$beta))
 
 # 4. Out-of-Sample Hypothesis Testing
 ks_res <- ks.test(test_data, function(x) pbetamix(x, fit$alpha, fit$beta, fit$omega))
