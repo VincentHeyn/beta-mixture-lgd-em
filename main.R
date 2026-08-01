@@ -35,9 +35,26 @@ cat("Kolmogorov-Smirnov p-value:", round(ks_res$p.value, 4), "\n")
 cat("Anderson-Darling p-value:  ", round(ad_res$p.value, 4), "\n")
 
 # 5. Density Plot
-x_seq <- seq(0, 1, length.out = 200)
+x_seq <- seq(0.001, 0.999, length.out = 300)
 fit_density <- sapply(x_seq, function(x) sum(fit$omega * dbeta(x, fit$alpha, fit$beta)))
+emp_density <- density(test_data, from = 0, to = 1) # Bounded kernel density
 
-plot(density(test_data), main = "Out-of-Sample LGD Density Fit", xlab = "LGD Residuals", lwd = 2)
-lines(x_seq, fit_density, col = "green", lwd = 2)
-legend("topright", legend = c("Empirical Test Data", "Fitted Beta Mixture"), col = c("black", "green"), lty = 1, lwd = 2)
+# Auto-scale y-axis so green peak doesn't get cut off
+max_y <- max(c(fit_density, emp_density$y)) * 1.10
+
+plot(emp_density, 
+     main = "Out-of-Sample LGD Density Fit (Beta Mixture via EM)", 
+     xlab = "LGD Residuals", 
+     ylab = "Density",
+     xlim = c(0, 1),
+     ylim = c(0, max_y), 
+     lwd = 2)
+
+lines(x_seq, fit_density, col = "forestgreen", lwd = 2.5)
+
+legend("topright", 
+       legend = c("Empirical Test Data", "Fitted Beta Mixture (EM)"), 
+       col = c("black", "forestgreen"), 
+       lty = 1, 
+       lwd = 2.5,
+       bty = "n")
