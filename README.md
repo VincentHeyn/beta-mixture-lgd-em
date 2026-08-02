@@ -72,15 +72,46 @@ install.packages(c("dplyr", "ggplot2", "goftest"))
    
 ---
 
-## Empirical Results & Visualizations
+## Empirical Results & Model Output
 
-### 1. Mixture Fit vs. Empirical LGD Density
-The custom EM algorithm captures multimodal peaks in annual default cohorts, outperforming single-component parametric baselines.
+### 1. Model Selection (AIC / BIC Criteria)
+The Expectation-Maximization (EM) algorithm was evaluated across $K \in \{1, 2, 3, 4\}$ candidate mixture components on training data ($N_{\text{train}} = 800$).
+
+| $K$ Components | Log-Likelihood | AIC | BIC | Decision |
+| :---: | :---: | :---: | :---: | :---: |
+| $K = 1$ | 301.6556 | -599.3111 | -588.1093 | Underfitted (Unimodal) |
+| $K = 2$ | 664.6890 | -1319.3779 | -1291.3734 | **Optimal Model (Selected via BIC)** |
+| $K = 3$ | 664.9841 | -1313.9681 | -1269.1609 | Overfitted |
+| $K = 4$ | 663.1511 | -1304.3021 | -1242.6922 | Overfitted |
+
+* **Result:** Bayesian Information Criterion (BIC) penalizes model complexity and selects **$K = 2$** as the optimal number of components, successfully isolating the bimodal structure of loss recoveries without overfitting.
+
+---
+
+### 2. Out-of-Sample Goodness-of-Fit Tests
+Evaluated on holdout test data ($N_{\text{test}} = 200$) using non-parametric goodness-of-fit hypothesis testing:
+
+| Test | $p$-value | Decision ($\alpha = 0.05$) |
+| :--- | :---: | :--- |
+| **Kolmogorov-Smirnov Test** | **0.4561** | Fail to reject $H_0$ (Good fit) |
+| **Anderson-Darling Test** | **0.6036** | Fail to reject $H_0$ (Good tail fit) |
+
+---
+
+### 3. Basel III Regulatory Credit Risk Metrics
+Calculated from the optimal $K=2$ Beta Mixture distribution parameters:
+
+| Metric | Mathematical Form | Value | Regulatory Significance |
+| :--- | :--- | :---: | :--- |
+| **Expected LGD ($\mathbb{E}[\text{LGD}]$)** | $\sum \omega_k \frac{\alpha_k}{\alpha_k + \beta_k}$ | **32.35%** | Baseline loss rate for Expected Loss (EL) |
+| **LGD VaR ($99.9\%$)** | $F^{-1}(0.999)$ | **95.66%** | 99.9th percentile worst-case loss threshold |
+| **ES ($99.9\%$)** | $\frac{1}{0.001} \int_{\text{VaR}}^{1} x f(x) dx$ | **96.74%** | Conditional tail loss during severe economic distress |
+
+---
+
+### 4. Density Fit & Tail Risk Visualization
 
 ![Out-of-Sample LGD Density Fit](LGD_Density_Fit.png)
-
-### 2. Model Selection (AIC/BIC)
-Evaluates information criteria curves across component counts ($K$) to prevent over-parameterization under regulatory guidelines.
 
 ---
 
