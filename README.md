@@ -48,7 +48,7 @@ $$
 * **Out-of-Sample Model Validation:** Automated $80/20$ train/test splitting evaluated against the empirical CDF (eCDF).
 * **Goodness-of-Fit Suite:** Automated execution of Kolmogorov-Smirnov (KS) and Anderson-Darling (AD) hypothesis tests.
 * **Model Order Selection:** Systematic component evaluation ($K \in [2, 5]$) tracking AIC and BIC penalization.
-* **Calculation of Risk measures:** Value at Risk, Esxpected Shortfall, Expected LGD
+* **Calculation of Risk measures:** Value at Risk, Expected Shortfall, Expected LGD
 
 ---
 
