@@ -59,7 +59,7 @@ fit_density <- sapply(x_seq, function(x) dbetamix(x, best_fit$alpha, best_fit$be
 emp_density <- density(test_data, from = 0, to = 1)
 
 plot(emp_density, 
-     main = paste0("Basel IRB LGD Fit & Tail Risk (K = ", best_k, " Beta Mixture)"), 
+     main = paste0("LGD Fit & VaR (K = ", best_k, " Beta Mixture)"), 
      xlab = "LGD Residuals", ylab = "Density", xlim = c(0, 1),
      ylim = c(0, max(c(fit_density, emp_density$y)) * 1.15), lwd = 2)
 
