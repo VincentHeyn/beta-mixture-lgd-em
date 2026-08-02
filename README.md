@@ -46,9 +46,9 @@ $$
 
 * **Custom EM Engine:** Built from scratch without external mixture packages to ensure explicit control over convergence criteria and boundary constraints.
 * **Out-of-Sample Model Validation:** Automated $80/20$ train/test splitting evaluated against the empirical CDF (eCDF).
-* **Goodness-of-Fit Suite:** Automated execution of Kolmogorov-Smirnov (KS), Anderson-Darling (AD), and Cramér-von Mises (CvM) hypothesis tests across temporal cohorts.
+* **Goodness-of-Fit Suite:** Automated execution of Kolmogorov-Smirnov (KS) and Anderson-Darling (AD) hypothesis tests.
 * **Model Order Selection:** Systematic component evaluation ($K \in [2, 5]$) tracking AIC and BIC penalization.
-* **Convergence Sensitivity Analysis:** Random quantile-based initialization routines (`EMRandom`) to test solver stability against local likelihood maxima.
+* **Calculation of Risk measures:** Value at Risk, Esxpected Shortfall, Expected LGD
 
 ---
 
